@@ -5,7 +5,7 @@ import { Token, Signature } from './types';
 import { isValidHex, signToken } from './utility'
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 const swaggerOptions = {
   swaggerDefinition: {
     openapi: '3.0.0',
@@ -57,7 +57,6 @@ const swaggerOptions = {
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 app.use(express.json());
-
 
 app.get('/', (req, res) => {
   res.redirect('/api-docs');
