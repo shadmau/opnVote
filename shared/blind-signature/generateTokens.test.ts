@@ -208,7 +208,7 @@ describe('verifyUnblindedSignature Tests', () => {
     masterR = generatedTokens.masterR;
   });
 
-  it.only('should return true for a valid unblinded signature-token pair', () => {
+  it('should return true for a valid unblinded signature-token pair', () => {
     const numberOfTests = 5;
 
     for (let i = 0; i < numberOfTests; i++) {

@@ -148,7 +148,7 @@ describe('verifyUnblindedSignature Tests', () => {
         masterToken = generatedTokens.masterToken;
         masterR = generatedTokens.masterR;
     });
-    it.only('should return true for a valid unblinded signature-token pair', () => {
+    it('should return true for a valid unblinded signature-token pair', () => {
         const numberOfTests = 5;
         for (let i = 0; i < numberOfTests; i++) {
             const electionID = Math.floor(Math.random() * 1000); // Random election ID
