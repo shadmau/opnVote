@@ -1,11 +1,8 @@
-import { Token, generateMasterTokenAndMasterR, concatTokenAndRForQR, qrToTokenAndR, deriveElectionUnblindedToken, validateHexString, R, deriveElectionR, validateToken, validateR, hexStringToBigInt, unblindSignature, Signature, blindToken, verifyUnblindedSignature, validateSignature } from './generateTokens';
+import { TestRegister } from '../config';
+import { Token, Signature, R } from '../types/types';
+import { signToken, validateR, validateSignature, validateToken } from '../utils/utils';
+import { generateMasterTokenAndMasterR, concatTokenAndRForQR, qrToTokenAndR, deriveElectionUnblindedToken, deriveElectionR, unblindSignature, blindToken, verifyUnblindedSignature } from './generateTokens';
 
-
-const TestRegister = {
-  N: BigInt("0xb04da828580e20ca83f0de9c0c62a201bf5d4b3afa8131e6dbd56efcdbc43bf1c66f1e27b24631ee13cba9c5e783560db2f7aae59fd88c7d381fe10519f84329"),
-  D: BigInt("0x9363C8B239B34DFCA0434D877DDF337B6C854D30785E6BDE89682C8A5E1BF6D3ECE0058816A2D260E233106581A11A27DBE43ADA133F9D71D307D261491B8B15"), // Private Key (DUMMY)
-  NbitLength: 512, // Bit length of N
-};
 
 
 
@@ -212,30 +209,30 @@ describe('verifyUnblindedSignature Tests', () => {
     const numberOfTests = 5;
 
     for (let i = 0; i < numberOfTests; i++) {
-  
-    const electionID = Math.floor(Math.random() * 1000); // Random election ID
-    const unblindedElectionToken = deriveElectionUnblindedToken(electionID, masterToken);
-    const unblindedElectionR = deriveElectionR(electionID, masterR, unblindedElectionToken)
 
-    expect(() => validateToken(unblindedElectionToken)).not.toThrow();
-    expect(() => validateR(unblindedElectionR)).not.toThrow();
+      const electionID = Math.floor(Math.random() * 1000); // Random election ID
+      const unblindedElectionToken = deriveElectionUnblindedToken(electionID, masterToken);
+      const unblindedElectionR = deriveElectionR(electionID, masterR, unblindedElectionToken)
 
-    // Blind Election Token
-    const blindedElectionToken = blindToken(unblindedElectionToken, unblindedElectionR)
-    validateToken(blindedElectionToken)
-    expect(() => validateToken(blindedElectionToken)).not.toThrow();
+      expect(() => validateToken(unblindedElectionToken)).not.toThrow();
+      expect(() => validateR(unblindedElectionR)).not.toThrow();
 
-    // Sign blinded Election Token and obtain blinded Signature
-    const blindedSignature = signToken(blindedElectionToken)
-    expect(() => validateSignature(blindedSignature)).not.toThrow();
+      // Blind Election Token
+      const blindedElectionToken = blindToken(unblindedElectionToken, unblindedElectionR)
+      validateToken(blindedElectionToken)
+      expect(() => validateToken(blindedElectionToken)).not.toThrow();
 
-    // Unblind blinded Signature
-    const unblindedSignature = unblindSignature(blindedSignature, unblindedElectionR)
-    expect(() => validateSignature(unblindedSignature)).not.toThrow();
+      // Sign blinded Election Token and obtain blinded Signature
+      const blindedSignature = signToken(blindedElectionToken)
+      expect(() => validateSignature(blindedSignature)).not.toThrow();
 
-    // Verify unblinded Signature
-    const isUnblindedSignatureValid = verifyUnblindedSignature(unblindedSignature, unblindedElectionToken)
-    expect(isUnblindedSignatureValid).toBe(true);
+      // Unblind blinded Signature
+      const unblindedSignature = unblindSignature(blindedSignature, unblindedElectionR)
+      expect(() => validateSignature(unblindedSignature)).not.toThrow();
+
+      // Verify unblinded Signature
+      const isUnblindedSignatureValid = verifyUnblindedSignature(unblindedSignature, unblindedElectionToken)
+      expect(isUnblindedSignatureValid).toBe(true);
     }
 
   });
@@ -244,35 +241,35 @@ describe('verifyUnblindedSignature Tests', () => {
     const numberOfTests = 2;
 
     for (let i = 0; i < numberOfTests; i++) {
-  
-    const electionID = Math.floor(Math.random() * 1000); // Random election ID
-    const unblindedElectionToken = deriveElectionUnblindedToken(electionID, masterToken);
-    const unblindedElectionR = deriveElectionR(electionID, masterR, unblindedElectionToken)
 
-    expect(() => validateToken(unblindedElectionToken)).not.toThrow();
-    expect(() => validateR(unblindedElectionR)).not.toThrow();
+      const electionID = Math.floor(Math.random() * 1000); // Random election ID
+      const unblindedElectionToken = deriveElectionUnblindedToken(electionID, masterToken);
+      const unblindedElectionR = deriveElectionR(electionID, masterR, unblindedElectionToken)
 
-    // Blind Election Token
-    const blindedElectionToken = blindToken(unblindedElectionToken, unblindedElectionR)
-    validateToken(blindedElectionToken)
-    expect(() => validateToken(blindedElectionToken)).not.toThrow();
+      expect(() => validateToken(unblindedElectionToken)).not.toThrow();
+      expect(() => validateR(unblindedElectionR)).not.toThrow();
 
-    // Sign blinded Election Token and obtain blinded Signature
-    const blindedSignature = signToken(blindedElectionToken)
-    expect(() => validateSignature(blindedSignature)).not.toThrow();
+      // Blind Election Token
+      const blindedElectionToken = blindToken(unblindedElectionToken, unblindedElectionR)
+      validateToken(blindedElectionToken)
+      expect(() => validateToken(blindedElectionToken)).not.toThrow();
 
-    // Unblind blinded Signature
-    const unblindedSignature = unblindSignature(blindedSignature, unblindedElectionR)
-    expect(() => validateSignature(unblindedSignature)).not.toThrow();
+      // Sign blinded Election Token and obtain blinded Signature
+      const blindedSignature = signToken(blindedElectionToken)
+      expect(() => validateSignature(blindedSignature)).not.toThrow();
 
-    // Generate invalid Unblinded Election Token
-    const invalidMasterTokenRPair =  generateMasterTokenAndMasterR()
-    const invalidUnblindedElectionToken = deriveElectionUnblindedToken(electionID, invalidMasterTokenRPair.masterToken)
+      // Unblind blinded Signature
+      const unblindedSignature = unblindSignature(blindedSignature, unblindedElectionR)
+      expect(() => validateSignature(unblindedSignature)).not.toThrow();
+
+      // Generate invalid Unblinded Election Token
+      const invalidMasterTokenRPair = generateMasterTokenAndMasterR()
+      const invalidUnblindedElectionToken = deriveElectionUnblindedToken(electionID, invalidMasterTokenRPair.masterToken)
 
 
-    // Verify unblinded Signature
-    const isUnblindedSignatureValid = verifyUnblindedSignature(unblindedSignature, invalidUnblindedElectionToken)
-    expect(isUnblindedSignatureValid).not.toBe(true);
+      // Verify unblinded Signature
+      const isUnblindedSignatureValid = verifyUnblindedSignature(unblindedSignature, invalidUnblindedElectionToken)
+      expect(isUnblindedSignatureValid).not.toBe(true);
     }
 
   });
@@ -296,31 +293,3 @@ function isValidBase64(str: string) {
 }
 
 
-//Helper function to sign a token
-//Not for production use
-function signToken(token: Token): Signature {
-  if (!token.isBlinded) { throw new Error("Only blinded Tokens shall be signed") }
-  if (token.isMaster) { throw new Error("Master Tokens shall not be signed") }
-  validateToken(token)
-  const tokenBig = hexStringToBigInt(token.hexString)
-  const signatureBig = powermod(tokenBig, TestRegister.D, TestRegister.N) // tokenBig ** TestRegister.D % TestRegister.N;
-
-  const hexLength = TestRegister.NbitLength / 4; // Convert bit length to hex length
-  const signatureHex = '0x' + signatureBig.toString(16).padStart(hexLength, '0')
-  const blindedSignature = { hexString: signatureHex, isBlinded: true }
-  validateSignature(blindedSignature)
-  return blindedSignature
-
-}
-
-// Helper function calculation modpow
-// Not for production use
-function powermod(base: bigint, exp: bigint, p: bigint) {
-  var result = 1n;
-  while (exp !== 0n) {
-    if (exp % 2n === 1n) result = result * base % p;
-    base = base * base % p;
-    exp >>= 1n;
-  }
-  return result;
-}
