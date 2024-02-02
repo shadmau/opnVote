@@ -3,7 +3,7 @@ import { ethers } from "ethers";
 import { modInv } from 'bigint-crypto-utils';
 import { Token, R, Signature } from "../types/types";
 import { base64ToHexString, hexStringToBase64, hexStringToBigInt, validateR, validateSignature, validateToken } from "../utils/utils";
-import { Register } from '../config'; 
+import { Register } from '../config'
 
 
 

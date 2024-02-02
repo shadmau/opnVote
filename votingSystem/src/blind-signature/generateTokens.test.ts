@@ -1,4 +1,4 @@
-import { TestRegister } from '../config';
+import { TestRegister } from '../config'
 import { Token, Signature, R } from '../types/types';
 import { signToken, validateR, validateSignature, validateToken } from '../utils/utils';
 import { generateMasterTokenAndMasterR, concatTokenAndRForQR, qrToTokenAndR, deriveElectionUnblindedToken, deriveElectionR, unblindSignature, blindToken, verifyUnblindedSignature } from './generateTokens';

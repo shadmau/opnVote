@@ -35,7 +35,7 @@ describe('createVoterCredentials', () => {
 
 
 describe('QR Code Encode and Decode', () => {
-  it.only('should correctly encode credentials to a QR code and decode back to the same credentials', () => {
+  it('should correctly encode credentials to a QR code and decode back to the same credentials', () => {
     // Generate initial credentials
     const { masterToken, masterR } = generateMasterTokenAndMasterR();
     const electionID = 1;
