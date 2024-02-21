@@ -134,13 +134,16 @@ dist
 cache/
 out/
 
-# Ignores development broadcast logs
-!/broadcast
-/broadcast/*/31337/
-/broadcast/**/dry-run/
 
 # Docs
 docs/
 
 # Dotenv file
 .env
+
+cache/
+out/
+.vscode
+.idea
+/backend/smart-contracts/broadcast/
+/backend/smart-contracts/lib/forge-std/
