@@ -7,7 +7,7 @@
     "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ opnVote",
     "create-local": "graph create --node http://localhost:8020/ opnVote",
     "remove-local": "graph remove --node http://localhost:8020/ opnVote",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 opnVote",
+    "deploy-local": "graph deploy --node http://127.0.0.1:8020/ --ipfs http://127.0.01:5001 opnVote",
     "test": "graph test"
   },
   "dependencies": {
