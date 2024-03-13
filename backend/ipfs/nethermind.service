@@ -1,0 +1,20 @@
+[Unit]
+Description=Nethermind Gnosis
+[Service]
+Type=simple
+User=madu
+Restart=always
+RestartSec=12
+ExecStart=/home/madu/gnosisNode/nethermind/nethermind \
+  --config gnosis \
+  --JsonRpc.JwtSecretFile="/home/madu/gnosisNode/secrets/jwt.hex" \
+  --datadir="/home/madu/gnosisNode/blockchain/" \
+  --JsonRpc.EnginePort 8552 \
+  --JsonRpc.Host 37.120.169.119 \
+  --JsonRpc.Port 8549 \
+  --Network.P2PPort 30304 \
+  --Network.DiscoveryPort 30304
+  --HealthChecks.Enabled  
+[Install]
+WantedBy=default.target
+

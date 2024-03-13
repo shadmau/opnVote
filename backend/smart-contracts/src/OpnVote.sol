@@ -6,7 +6,6 @@ import "@openzeppelin/contracts/utils/cryptography/ECDSA.sol";
 import "@openzeppelin/contracts/utils/cryptography/MessageHashUtils.sol";
 import "./Structs.sol";
 
-//todo check if AP/SVS/Register ID == 0 is a good idea
 
 contract OpnVote is Ownable(msg.sender) {
     using ECDSA for bytes32;
