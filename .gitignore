@@ -147,3 +147,5 @@ out/
 .idea
 /backend/smart-contracts/broadcast/
 /backend/smart-contracts/lib/forge-std/
+
+!backend/smart-contracts/**/out/
